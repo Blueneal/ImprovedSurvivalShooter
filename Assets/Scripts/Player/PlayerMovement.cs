@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float startingStamina = 100f;
-    float currentStamina;
     public float speed = 6f;
+    public bool onCooldown;
+    public Slider staminaSlider;
 
+    private int floorMask;
+    private float startingStamina = 100f;
+    private float currentStamina;
+    private float camRayLength = 100f;
     private Vector3 movement;
     private Animator anim;
     private Rigidbody playerRigidbody;
-    private int floorMask;
-    private float camRayLength = 100f;
 
-    public bool onCooldown;
-    public Slider staminaSlider;
     void Awake()
     {
         floorMask = LayerMask.GetMask ("Floor");

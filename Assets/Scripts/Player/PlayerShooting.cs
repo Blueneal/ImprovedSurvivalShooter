@@ -5,37 +5,33 @@ using TMPro;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public float weaponType = 1;
-
     public int damagePerShot = 20;
     public float timeBetweenBullets = 0.25f;
     public float range = 100f;
-    float timer;
-
-    Ray shootRay;
-    RaycastHit shootHit;
-    int shootableMask;
-    ParticleSystem gunParticles;
+    public float weaponType = 1;
     public LineRenderer gunLine;
     public LineRenderer gunLineLeft;
     public LineRenderer gunLineRight;
-    AudioSource gunAudio;
-    Light gunLight;
-    float effectsDisplayTime = .2f;
-
+    public TextMeshProUGUI ammoText;
+    public AudioClip emptyGun;
+    public AudioClip hasAmmo;
     public GameObject rifleImage;
     public GameObject shotgunImage;
     public GameObject fullAutoImage;
-    GameObject currentIcon;
 
-    int rifleAmmo;
-    int shotgunAmmo;
-    int fullAutoAmmo;
-    int currentAmmo;
-    public TextMeshProUGUI ammoText;
-
-    public AudioClip emptyGun;
-    public AudioClip hasAmmo;
+    private int shootableMask;
+    private int rifleAmmo;
+    private int shotgunAmmo;
+    private int fullAutoAmmo;
+    private int currentAmmo;
+    private float timer;
+    private float effectsDisplayTime = .2f;
+    private Ray shootRay;
+    private RaycastHit shootHit;
+    private ParticleSystem gunParticles;
+    private Light gunLight;
+    private AudioSource gunAudio;
+    private GameObject currentIcon;
 
     private void Awake()
     {

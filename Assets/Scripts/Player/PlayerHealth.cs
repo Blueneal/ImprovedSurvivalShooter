@@ -6,18 +6,18 @@ public class PlayerHealth : MonoBehaviour
 {
     public int startingHealth = 100;
     public int currentHealth;
+    public float flashSpeed = 5f;
     public Slider healthSlider;
     public Image damageImage;
     public AudioClip deathClip;
-    public float flashSpeed = 5f;
     public Color flashColor = new Color(1f, 0f, 0f, .1f);
 
-    Animator anim;
-    AudioSource playerAudio;
-    PlayerMovement playerMovement;
-    PlayerShooting playerShooting;
-    bool isDead;
-    bool damaged;
+    private bool isDead;
+    private bool damaged;
+    private Animator anim;
+    private AudioSource playerAudio;
+    private PlayerMovement playerMovement;
+    private PlayerShooting playerShooting;
 
     private void Awake()
     {
