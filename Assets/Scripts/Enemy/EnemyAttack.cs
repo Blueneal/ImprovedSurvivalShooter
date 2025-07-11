@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public float timeBetweenAttacks = 0.5f;
     public int attackDamage = 10;
+    public float timeBetweenAttacks = 0.5f;
 
-    Animator anim;
-    GameObject player;
-    PlayerHealth playerHealth;
-    EnemyHealth enemyHealth;
-
-    bool playerInRange;
-    float timer;
+    private float timer;
+    private bool playerInRange;
+    private Animator anim;
+    private GameObject player;
+    private PlayerHealth playerHealth;
+    private EnemyHealth enemyHealth;
 
     private void Awake()
     {

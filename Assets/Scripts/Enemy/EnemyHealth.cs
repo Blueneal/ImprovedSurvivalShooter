@@ -9,20 +9,19 @@ public class EnemyHealth : MonoBehaviour
     public int currentHealth;
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
-    public AudioClip deathClip; // Enemy death sound
-
-    Animator anim;
-    AudioSource enemyAudio;
-    ParticleSystem hitParticles;
-    CapsuleCollider capsuleCollider;
-    bool isDead;
-    bool isSinking;
-
     public GameObject rifleAmmoPickup;
     public GameObject shotgunAmmoPickup;
     public GameObject fullAutoPickup;
-
     public GameObject healthPickup;
+    public AudioClip deathClip; // Enemy death sound
+
+    private bool isDead;
+    private bool isSinking;
+    private Animator anim;
+    private AudioSource enemyAudio;
+    private ParticleSystem hitParticles;
+    private CapsuleCollider capsuleCollider;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
