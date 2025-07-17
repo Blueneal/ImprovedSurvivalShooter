@@ -1,18 +1,23 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 6f;
     public bool onCooldown;
+    public bool isMoving;
     public Slider staminaSlider;
 
     private int floorMask;
+    private float speed;
+    private float normalSpeed = 6f;
+    private float sprintSpeed = 10f;
     private float startingStamina = 100f;
     private float currentStamina;
     private float camRayLength = 100f;
+    private float timer = 10;
     private Vector3 movement;
     private Animator anim;
     private Rigidbody playerRigidbody;
@@ -24,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         onCooldown = false;
         currentStamina = startingStamina;
+        speed = normalSpeed;
     }
 
     void FixedUpdate()
@@ -35,9 +41,9 @@ public class PlayerMovement : MonoBehaviour
         Turning();
         Animating(h, v);
 
-        if (Input.GetKey(KeyCode.LeftShift) && onCooldown == false)
+        if (Input.GetKey(KeyCode.LeftShift) && onCooldown == false && isMoving == true)
         {
-            StartCoroutine(CountDownTimer());
+            StartCoroutine(PlayerSprinting());
         }
     }
 
@@ -46,6 +52,15 @@ public class PlayerMovement : MonoBehaviour
         movement.Set(h, 0f, v);
         movement = movement.normalized * speed * Time.deltaTime;
         playerRigidbody.MovePosition(transform.position + movement);
+        bool walking = h != 0f || v != 0f;
+        if (walking = h != 0f || v != 0f)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            return;
+        }
     }
 
     void Turning()
@@ -70,17 +85,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //Speeds the player up for 10 seconds, then resets the player back to original speed
-    private IEnumerator CountDownTimer()
+    private IEnumerator PlayerSprinting()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < timer; i++)
         {
-            speed = 10f;
+            speed = sprintSpeed;
+            yield return new WaitForSeconds(1f);
             currentStamina -= 5f;
             staminaSlider.value = currentStamina;
-            yield return new WaitForSeconds(1f);
             i++;
         }
-        speed = 6f;
+        speed = normalSpeed;
         onCooldown = true;
         StartCoroutine(CoolDown());
     }
@@ -88,11 +103,11 @@ public class PlayerMovement : MonoBehaviour
     //Adds an additional 10 second cooldown so the player cant sprint all the time
     private IEnumerator CoolDown()
     {
-        for (int i = 0; i < 10; i++)
-        {
+        for (int i = 0; i < timer; i++)
+        { 
+            yield return new WaitForSeconds(1f);
             currentStamina += 5f;
             staminaSlider.value = currentStamina;
-            yield return new WaitForSeconds(1f);
             i++;
         }
         onCooldown = false;
