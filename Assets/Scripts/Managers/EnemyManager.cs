@@ -6,11 +6,9 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemy;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
-    public GameObject setPlayer; 
 
     void Start()
     {
-        setPlayer = GameObject.Find("Player");
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
 
