@@ -4,11 +4,14 @@ public class EnemyManager : MonoBehaviour
 {
     public PlayerHealth playerHealth;
     public GameObject enemy;
+    public static GameObject player;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        EnemyMovement.playerPos = player.transform;
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
 
